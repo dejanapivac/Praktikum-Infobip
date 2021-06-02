@@ -7,23 +7,31 @@ var should = chai.should;
 
 //ako hocemo preskocit neki test onda stavimo describe.skip ili it.skip
 
+//?? kak da odredim test nakon not number testa confused how do i know i dont know
+
 describe("dayOfYear problem", function(){
     it("dayOfYear should be a function", function(){
-        dayOfYear(1);
+        expect(dayOfYear).to.be.a('function');
     });
-    it("should return 1 if 01.01.2012.", function(){
-        expect(dayOfYear(1, 1, 2012)).to.be.equal(1);
+    it("should throw error if there's no 3 arg", function(){
+        expect(() => dayOfYear()).to.throw();
     }); 
-    // it("should return 2 if 02.01.2000.", function(){
-    //     expect(dayOfYear(2000, 1, 2)).to.be.equal(2);
-    // });
-    it("should return 32 if 01.02.2012.", function(){
-        expect(dayOfYear(1,2,2012)).to.be.equal(32);
+    it('should throw error if any argument is not number', function () {
+        expect(() => dayOfYear(2000, 'meow', "heh hehe")).to.throw();
     });
-    it("should return 61 if 01.03.2012.", function(){
-        expect(dayOfYear(1,3,2012)).to.be.equal(61);
+    it('should return 1 if 1st of January 2000', function () {
+        expect(dayOfYear(2012, 1, 1)).to.be.equal(1);
+    }); 
+    it("should return 32 for first of february 2000", function () {
+        expect(dayOfYear(2012, 2, 1)).to.equal(32);
     });
-    // it("should return 60 if 01.03.2001.", function(){
-    //     expect(dayOfYear(2000, 4, 1)).to.be.equal(92);
-    // });
+    it("should return 61 for first of March 2000", function () {
+        expect(dayOfYear(2012, 3, 1)).to.equal(61);
+    });
+    it("should return 60 for first of March 2017", function () {
+        expect(dayOfYear(2017, 3, 1)).to.equal(60);
+    });
+    it("should return 91 for first of April 2017", function () {
+        expect(dayOfYear(2017, 4, 1)).to.equal(91);
+      });
 });

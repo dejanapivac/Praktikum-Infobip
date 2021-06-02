@@ -1,22 +1,27 @@
 //------bolji izgled-----
 
-function dayOfYear(day, month, year) {
-    let months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30];
-    let days = 0;
+function dayOfYear(year, month, day) {
+    if(arguments.length != 3 || typeof(day) !== 'number' || typeof(month) !== 'number' || typeof(year) !== 'number') {
+        //
+        throw new Error;
+      }
 
-    for(let i = 0; i < month-1; i++) {
-        days += months[i];
+    let daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    let days = day;
+
+    for(let i = 0; i < month-1; i++){
+      days += daysInMonth[i];
     }
+    if (month > 2 && isLeapYear(year)) days += 1;
+   
+    return days;
 
-    if(month > 2 && isLeapYear(year)) days += 1;
+  }
 
-    return days + day;  
-}
+    function isLeapYear(year) {
+      return(!(year % 4) && (year % 100) || !(year % 400));
+  }
 
-function isLeapYear(year) {
-    if(year % 4 === 0) return true;
-    return false;
-}
 
 module.exports = dayOfYear;
 
